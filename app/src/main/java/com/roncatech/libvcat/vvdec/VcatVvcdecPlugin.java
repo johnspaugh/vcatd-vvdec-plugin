@@ -40,11 +40,20 @@ import com.google.android.exoplayer2.decoder.DecoderException;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoRendererEventListener;
-import com.roncatech.vcat.decoder_plugin_api.NonStdDecoderStsdParser;
-import com.roncatech.vcat.decoder_plugin_api.VcatDecoderPlugin;
+import com.roncatech.vcat.decoder_plugin_api.ContainerParser;
+import com.roncatech.vcat.decoder_plugin_api.Mp4DecoderPlugin;
+import com.roncatech.vcat.decoder_plugin_api.VcatDecoder;
 import com.roncatech.vcat.decoder_plugin_api.VideoConfiguration;
 
-public class VcatVvcdecPlugin implements VcatDecoderPlugin, NonStdDecoderStsdParser {
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * vcat-d VVC/H.266 decoder plugin (vvdec) on the {@link VcatDecoder} SPI. VVC uses a
+ * non-standard MP4 sample entry ({@code vvc1}/{@code vvcC}), so this plugin is also an
+ * {@link Mp4DecoderPlugin} and parses the {@code stsd} itself.
+ */
+public class VcatVvcdecPlugin implements VcatDecoder, Mp4DecoderPlugin {
 
     @Override public int sampleEntry4ccCode(){
         return Util.getIntegerCodeForString("vvc1");
@@ -56,13 +65,14 @@ public class VcatVvcdecPlugin implements VcatDecoderPlugin, NonStdDecoderStsdPar
     }
 
     @Override
-    public String mimeType(){
-        return mimeType;
-    }
-
-    @Override
     public VideoConfiguration parseStsd(byte[] data){
         return VvcVideoCfgParser.parseStsd(data);
+    }
+
+    /** VVC needs custom MP4 stsd parsing, so this decoder advertises itself as its MP4 parser. */
+    @Override
+    public List<ContainerParser> getSupportedContainerParsers() {
+        return Collections.singletonList(this);
     }
 
     @Override
@@ -87,12 +97,6 @@ public class VcatVvcdecPlugin implements VcatDecoderPlugin, NonStdDecoderStsdPar
     }
 
     public static final String mimeType = "video/vvc";
-
-    @Override
-    public java.util.List<String> getSupportedProfiles() {
-        // You asked for lowercase "main"
-        return java.util.Collections.singletonList("main");
-    }
 
     @Override
     public Renderer createVideoRenderer(
