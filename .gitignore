@@ -18,3 +18,4 @@ local.properties
 
 # Claude Code
 .claude/
+**/.cxx/
