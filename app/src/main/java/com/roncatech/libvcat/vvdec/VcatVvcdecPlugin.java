@@ -41,7 +41,7 @@ import com.google.android.exoplayer2.util.ParsableByteArray;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoRendererEventListener;
 import com.roncatech.vcat.decoder_plugin_api.ContainerParser;
-import com.roncatech.vcat.decoder_plugin_api.Mp4DecoderPlugin;
+import com.roncatech.vcat.decoder_plugin_api.Mp4ParserExtension;
 import com.roncatech.vcat.decoder_plugin_api.VcatDecoder;
 import com.roncatech.vcat.decoder_plugin_api.VideoConfiguration;
 
@@ -51,9 +51,9 @@ import java.util.List;
 /**
  * vcat-d VVC/H.266 decoder plugin (vvdec) on the {@link VcatDecoder} SPI. VVC uses a
  * non-standard MP4 sample entry ({@code vvc1}/{@code vvcC}), so this plugin is also an
- * {@link Mp4DecoderPlugin} and parses the {@code stsd} itself.
+ * {@link Mp4ParserExtension} and parses the {@code stsd} itself.
  */
-public class VcatVvcdecPlugin implements VcatDecoder, Mp4DecoderPlugin {
+public class VcatVvcdecPlugin implements VcatDecoder, Mp4ParserExtension {
 
     @Override public int sampleEntry4ccCode(){
         return Util.getIntegerCodeForString("vvc1");

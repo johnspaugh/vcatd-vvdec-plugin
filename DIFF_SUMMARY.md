@@ -4,6 +4,14 @@ Running summary of notable changes to `vcatd-vvdec-plugin`, newest first.
 
 ---
 
+## 2026-08-07 — Rename `Mp4DecoderPlugin` → `Mp4ParserExtension`
+
+- `VcatVvcdecPlugin` now implements `VcatDecoder, Mp4ParserExtension` (the MP4 `stsd` container-
+  parser interface was renamed in the api). Pure rename — no behavior change.
+- api dep bumped `1.0.2 → 1.0.3`. Builds against api `1.0.3`.
+
+---
+
 ## 2026-08-05 — Migrate to the `VcatDecoder` SPI
 
 - `VcatVvcdecPlugin` now implements **`VcatDecoder` + `Mp4DecoderPlugin`** (was the deprecated
