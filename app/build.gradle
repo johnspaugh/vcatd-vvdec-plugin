@@ -111,6 +111,8 @@ vvdecAbis.each { abi ->
                         '-D', "CMAKE_BUILD_TYPE=Release",
                         '-D', "BUILD_SHARED_LIBS=OFF",
                         '-D', "VVDEC_ENABLE_TRACING=OFF",
+                        '-D', "VVDEC_LIBRARY_ONLY=ON",
+                        '-D', "VVDEC_ENABLE_LINK_TIME_OPT=OFF",
                         '-D', "CMAKE_INSTALL_PREFIX=${installDir.absolutePath}",
                         vvdecSrcDir.absolutePath
             }
@@ -217,10 +219,10 @@ afterEvaluate {
 
 /* ===== Dependencies ===== */
 dependencies {
-    compileOnly 'com.roncatech.vcat:vcatd-decoder-plugin-api:1.0.3'
+    compileOnly 'com.roncatech.vcat:vcatd-decoder-plugin-api:1.0.4'
     compileOnly 'com.google.android.exoplayer:exoplayer-core:2.19.1'
     compileOnly 'androidx.annotation:annotation:1.7.1'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.google.android.exoplayer:exoplayer-core:2.19.1'
-    testImplementation 'com.roncatech.vcat:vcatd-decoder-plugin-api:1.0.3'
+    testImplementation 'com.roncatech.vcat:vcatd-decoder-plugin-api:1.0.4'
 }

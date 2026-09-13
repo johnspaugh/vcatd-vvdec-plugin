@@ -53,6 +53,7 @@ target_link_libraries(vcat_vvdec_jni
         ${log_lib}
         ${android_lib}
         c++_static
+        c++abi
 )
 
 # 32-bit often needs libatomic
